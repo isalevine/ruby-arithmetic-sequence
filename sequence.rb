@@ -17,3 +17,41 @@ add_array = [0, 3, 7, 10]
 
 #       - check if next-new-num (3) is in sequence if added AFTER current (1)
 #           - recursively check new possible step??
+
+
+# GOAL: return final length of arithemtically-stepping array (or -1 if not possible)
+
+
+def check_sequence(base_array, add_array)
+    step = base_array[1] - base_array[0]
+    if check_base_array(base_array, step)
+        recursive_step_check(base_array, 0, add_array, 0, step)
+        return base_array.length
+    else
+        return -1
+    end
+end
+
+
+def check_base_array(base_array, step)
+    index = 1
+    last_index = base_array.length - 1
+
+    while index < last_index
+        current_num = base_array[index]
+        next_num = base_array[index + 1]
+
+        if next_num - current_num != step
+            return false
+        end
+
+        index += 1
+    end
+
+    return true
+end
+
+
+def recursive_step_check(base_array, base_index, add_array, add_index, step)
+
+end
