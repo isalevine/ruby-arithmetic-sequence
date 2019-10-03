@@ -53,5 +53,28 @@ end
 
 
 def recursive_step_check(base_array, base_index, add_array, add_index, step)
+    #   1. new-num (0), current (1), next (4)           => if steps are equal, recursively check rest of the array!
+    #   2. new-num (0), current (1), next-new-num (3)
 
+    base_num = base_array[base_index]
+    base_next_num = base_array[base_index + 1]
+    add_num = add_array[add_index]
+
+    if add_num < base_num && base_num - add_num == step
+        base_array.insert(base_index, add_num)
+
+        # add_index += 1
+        # recursive_step_check(base_array, base_index, add_array, add_index, step)
+
+    elsif add_num > base_num
+        # skip to next base_index
+        base_index += 1
+        recursive_step_check(base_array, base_index, add_array, add_index, step)
+
+    elsif add_num == base_num
+        # skip to next add_index
+        add_index += 1
+        recursive_step_check(base_array, base_index, add_array, add_index, step)
+    end
+    
 end
