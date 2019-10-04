@@ -24,12 +24,16 @@ add_array = [0, 3, 7, 10]
 
 def check_sequence(base_array, add_array)
     step = base_array[1] - base_array[0]
+    new_base_array = base_array     # only mutate base_array once 
+    max_array_length = 0
+
     if check_base_array(base_array, step)
-        recursive_step_check(base_array, 0, add_array, 0, step)
-        return base_array.length
+        recursive_step_check(new_base_array, 0, add_array, 0, step, base_array, max_array_length)
+        return max_array_length
     else
         return -1
     end
+    
 end
 
 
@@ -52,7 +56,7 @@ def check_base_array(base_array, step)
 end
 
 
-def recursive_step_check(base_array, base_index, add_array, add_index, step)
+def recursive_step_check(base_array, base_index, add_array, add_index, step, orig_base_array, max_array_length)
     #   1. new-num (0), current (1), next (4)           => if steps are equal, recursively check rest of the array!
     #   2. new-num (0), current (1), next-new-num (3)
 
@@ -60,21 +64,45 @@ def recursive_step_check(base_array, base_index, add_array, add_index, step)
     base_next_num = base_array[base_index + 1]
     add_num = add_array[add_index]
 
-    if add_num < base_num && base_num - add_num == step
+    if add_num < base_num && base_num - add_num == step     # in sequence, before base_num
         base_array.insert(base_index, add_num)
+        add_index += 1
 
-        # add_index += 1
-        # recursive_step_check(base_array, base_index, add_array, add_index, step)
+    elsif add_num > base_num && add_num - base_num == step  # in sequence, after base_num
+        base_array.insert(base_index + 1, add_num)
+        add_index += 1
 
-    elsif add_num > base_num
-        # skip to next base_index
+    elsif add_num > base_num && add_num - base_num != step
         base_index += 1
-        recursive_step_check(base_array, base_index, add_array, add_index, step)
 
     elsif add_num == base_num
-        # skip to next add_index
         add_index += 1
-        recursive_step_check(base_array, base_index, add_array, add_index, step)
+    end
+
+    if base_array[base_index] && add_array[add_index]
+        recursive_step_check(base_array, base_index, add_array, add_index, step, orig_base_array, max_array_length)
+    else
+        if base_array.length > max_array_length
+            max_array_length = base_array.length
+        end
+        base_array = orig_base_array
+
+        # try before
+        new_step = base_array[0] - add_array[0]
+        if new_step && new_step > 0
+            base_array.inser(0, add_array[0])
+            add_array.shift
+            recursive_step_check(base_array, 0, add_array, 0, new_step, orig_base_array, max_array_length)
+        end
+
+        # try after
+        new_step = add_array[1] - base_array[0]
+        if new_step && new_step > 0
+            base_array.insert(1, add_array[1])
+            add_array.delete_at(1)
+            recursive_step_check(base_array, 0, add_array, 0, new_step, orig_base_array, max_array_length)
+        end
+
     end
     
 end
