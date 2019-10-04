@@ -1,7 +1,7 @@
 
 base_array = [1, 4, 7]
 add_array = [0, 3, 7, 10]
-# => [1, 4, 7, 10], arithmetic step = 3
+# => [1, 4, 7, 10], arithmetic step = 3; function returns length of 4
 
 
 # REMEMBER: you only need to check 3 points at a time: before-current-after
@@ -27,7 +27,8 @@ def check_sequence(base_array, add_array)
     new_base_array = base_array     # only mutate base_array once 
     max_array_length = 0
 
-    if check_base_array(base_array, step)
+    if check_base_array(base_array, step)   
+        # THIS DOES NOT ACCOUNT FOR the possible sequences created by adding to base_array...
         recursive_step_check(new_base_array, 0, add_array, 0, step, base_array, max_array_length)
         return max_array_length
     else
@@ -106,3 +107,6 @@ def recursive_step_check(base_array, base_index, add_array, add_index, step, ori
     end
     
 end
+
+
+check_sequence(base_array, add_array)
