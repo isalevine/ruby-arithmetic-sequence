@@ -24,40 +24,51 @@ add_array = [0, 3, 7, 10]
 
 
 def check_sequence(base_array, add_array)
-    max_length = -1
-    step = 0    # 0 indicates no arithmetic sequence detected
+    # max_length = -1
+    # step = 0    # 0 indicates no arithmetic sequence detected
+    max_length = check_base_array(base_array, add_array, max_length)
 
-    def check_base_array()
-        # check if base_array starts w/ arithmetic sequence -- 
-        # possible to roll in w/ main recursive function?
-        if base_array[0] && base_array[1]
-            step = base_array[1] - base_array[0]
-            if base_array[2] && base_array[2] - base_array[1] == step
-                recursive_insert_num(index: 2)
+    if add_array[0]     # or: add_array.length > 0 ??
+        # recursive_insert_num(base_array, 0, add_array, max_length)
+    end
+
+    return max_length
+end
+
+
+def check_base_array(base_array, add_array, max_length)
+    if base_array[0] && base_array[1]
+        step = base_array[1] - base_array[0]
+
+        base_array.each_index do |i|
+            if base_array[i + 1]
+                if base_array[i + 1] - base_array[i] != step
+                    # max_length = -1
+                    # step = 0
+                    # break   # does this break the .each_with_index enum, or something else?
+                    return -1
+                end
             else
-                step = 0    # reset step
+                # base_array is length = 3, arithmetic sequence = TRUE
+
+                # max_length = base_array.length
+                # puts max_length
+                return base_array.length
             end
-        else
-            return_max_length
-        end
-    end
-
-
-    def return_max_length()
-        return max_length
-    end
-
-
-    def resursive_insert_num(index: 0)
-        puts "Calling resursive_insert_num, index #{index}..."
-
+        end    
 
     end
+end
+
+
+def resursive_insert_num(base_array, base_index, add_array, add_index, max_length, step: 0)
+    puts "Calling resursive_insert_num..."
+
 
 end
 
 
-check_sequence(base_array, add_array)
+puts check_sequence(base_array, add_array)
 
 
 
