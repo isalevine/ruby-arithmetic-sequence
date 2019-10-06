@@ -24,12 +24,10 @@ add_array = [0, 3, 7, 10]
 
 
 def check_sequence(base_array, add_array)
-    # max_length = -1
-    # step = 0    # 0 indicates no arithmetic sequence detected
     max_length = check_base_array(base_array, add_array, max_length)
 
     if add_array[0]     # or: add_array.length > 0 ??
-        # recursive_insert_num(base_array, 0, add_array, max_length)
+        max_length = recursive_insert_num(base_array, 0, add_array, 0, max_length)
     end
 
     return max_length
@@ -43,20 +41,13 @@ def check_base_array(base_array, add_array, max_length)
         base_array.each_index do |i|
             if base_array[i + 1]
                 if base_array[i + 1] - base_array[i] != step
-                    # max_length = -1
-                    # step = 0
-                    # break   # does this break the .each_with_index enum, or something else?
                     return -1
                 end
-            else
-                # base_array is length = 3, arithmetic sequence = TRUE
 
-                # max_length = base_array.length
-                # puts max_length
+            else
                 return base_array.length
             end
         end    
-
     end
 end
 
@@ -64,6 +55,19 @@ end
 def resursive_insert_num(base_array, base_index, add_array, add_index, max_length, step: 0)
     puts "Calling resursive_insert_num..."
 
+    if step == 0
+        if base_array[0] && base_array[1]   # or: base_array.length >= 2 ??
+            step = base_array[1] - base_array[0]
+        
+        elsif base_array[0]     # or: base_array.length == 1 ??
+
+
+        end
+
+    else
+        
+
+    end
 
 end
 
