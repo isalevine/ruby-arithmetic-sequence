@@ -55,17 +55,39 @@ end
 def resursive_insert_num(base_array, base_index, add_array, add_index, max_length, step: 0)
     puts "Calling resursive_insert_num..."
 
-    if step == 0
-        if base_array[0] && base_array[1]   # or: base_array.length >= 2 ??
-            step = base_array[1] - base_array[0]
-        
-        elsif base_array[0]     # or: base_array.length == 1 ??
+    # 1. if step == 0 && base_index == 0 && add_index == 0, you are at beginning -- 
+    #       start by finding initial step from base_array, and try adding from add_array
+    
+    # 2. if step == 0 && base_index >= 0 && add_index >= 0, currently trying to find a new sequence
+    #       by adding from add_num...
+    
+    # 3. if step > 0, then a sequence is being checked...
 
+    # 4. if 
+
+    #
+
+    if step == 0
+        if base_array[base_index] && base_array[base_index + 1]
+            step = base_array[base_index + 1] - base_array[base_index]
+        
+        elsif base_array[base_index]
+            if add_array[add_index] < base_array[base_index]
+                new_base_array = base_array.insert(base_index, add_num)
+
+            elsif add_array[add_index] > base_array[base_index]
+                resursive_insert_num(base_array, base_index, add_array, add_index, max_length, step: 0)
+
+            end     # if equal, do nothing -- move onto next ______ (?)
 
         end
 
     else
-        
+        # add_num = add_array[add_index]
+        # base_num = base_array[base_index]
+
+        # if base_array[base_index] && base_array[base_index + 1]
+        # end
 
     end
 
